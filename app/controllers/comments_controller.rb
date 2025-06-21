@@ -23,6 +23,7 @@ class CommentsController < ApplicationController
   # POST /comments or /comments.json
   def create
     @comment = Comment.new(comment_params)
+    puts "params = #{params}"
 
     respond_to do |format|
       if @comment.save
@@ -67,6 +68,6 @@ class CommentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def comment_params
-      params.expect(comment: [ :content, {author_attributes: [:id, :name, :email, :website]}] )
+      params.expect(comment: [ :content, :post_path, {author_attributes: [:id, :name, :email, :website]}] )
     end
 end

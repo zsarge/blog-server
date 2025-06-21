@@ -1,12 +1,13 @@
 <div id="<%= dom_id comment %>">
   <p>
-    <strong>Content:</strong>
+    <% comment_date_formatted = comment.created_at
+                             .in_time_zone("America/New_York")
+                             .strftime("%B %d, %Y at %I:%M %p %Z") %>
+    <% comment_date_iso = comment.created_at.iso8601 %>
+    <strong><%= comment.author.display_name %></strong> 
+    (<time datetime="<%= comment_date_iso %>"><%= comment_date_formatted %></time>)
+  </p>
+  <p>
     <%= comment.content %>
   </p>
-
-  <p>
-    <strong>Author:</strong>
-    <%= comment.author_id %>
-  </p>
-
 </div>
