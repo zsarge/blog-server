@@ -5,6 +5,9 @@
                              .strftime("%B %d, %Y at %I:%M %p %Z") %>
     <% comment_date_iso = comment.created_at.iso8601 %>
     <strong><%= comment.author.display_name %></strong> 
+    <% if comment.author.website.present? %>
+      <small>(<%= link_to display_url(comment.author.website), normalize_url(comment.author.website), target: "_blank", rel: "noopener" %>)</small>
+    <% end %>
     (<time datetime="<%= comment_date_iso %>"><%= comment_date_formatted %></time>)
   </p>
   <p>

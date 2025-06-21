@@ -11,8 +11,18 @@
     </div>
   <% end %>
 
+
   <div>
-    <%= form.label :content, style: "display: block" %>
+    <h2>Notes:</h2>
+    <ul>
+      <li> comments cannot be edited or deleted, except by moderators </li>
+      <li> comments are plain-text </li>
+      <li> expect all information provided to be public </li>
+      <li> be kind :] </li>
+    </ul>
+  </div>
+  <div>
+    <%= form.label :content, "Your Comment", style: "display: block" %>
     <%= form.textarea :content %>
   </div>
 
@@ -27,16 +37,16 @@
     <legend>Author Details (Optional)</legend>
     <%= form.fields_for :author, comment.author || Author.new do |author_fields| %>
       <div>
-        <%= author_fields.label :name, "Display Name" %>
+        <%= author_fields.label :name, "Your Name" %>
         <%= author_fields.text_field :name %>
       </div>
       <div>
-        <%= author_fields.label :email %>
-        <%= author_fields.text_field :email %>
+        <%= author_fields.label :website, "Your Website URL" %>
+        <%= author_fields.text_field :website %>
       </div>
       <div>
-        <%= author_fields.label :website %>
-        <%= author_fields.text_field :website %>
+        <%= author_fields.label :email, "Your E-Mail (only visible to admin)" %>
+        <%= author_fields.text_field :email %>
       </div>
     <% end %>
   </fieldset>
