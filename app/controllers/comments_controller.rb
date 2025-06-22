@@ -24,11 +24,6 @@ class CommentsController < ApplicationController
   def create
 	@comment = Comment.new(comment_params)
 
-    puts "----"
-	puts "params = #{params}"
-	puts "comment_params = #{comment_params}"
-    puts "----"
-
 	respond_to do |format|
 	  if @comment.save
 		format.html { redirect_to @comment, notice: "Comment was successfully created." }
@@ -53,16 +48,7 @@ class CommentsController < ApplicationController
 	  return
 	end
 
-	@comments = Comment.where(post_path: @post_path)
-    comments_map = @comments.index_by(&:id)
-
-	@comments.each do |comment|
-      if comment.is_reply?
-        comments_map[comment.parent_id].replies << comment
-      end
-	end
-
-    @comments = @comments.reject{|comment| comment.is_reply?}
+	@comments = Comment.where(post_path: @post_path, parent_id: nil)
 
 	respond_to do |format|
 	  format.html # renders app/views/comments/for.html.erb
