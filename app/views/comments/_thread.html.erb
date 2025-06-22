@@ -13,4 +13,12 @@
   <p>
     <%= comment.content %>
   </p>
+  <div>
+    <%= link_to "reply", new_comment_path(post_path: comment.post_path, parent_id: comment.id) %>
+  </div>
+  <% if comment.replies.any? %>
+    <blockquote class="replies">
+      <%= render partial: 'thread', collection: comment.replies, as: :comment %>
+    </blockquote>
+  <% end %>
 </div>

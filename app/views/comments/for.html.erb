@@ -1,12 +1,11 @@
 
-
 <div>
   <%= link_to "New Comment", new_comment_path(post_path: @post_path) %>
 </div>
 
 <% if @comments %>
   <% @comments.each do |comment| %>
-    <%= render comment %>
+    <%= render partial: 'thread', locals: {comment: comment} %>
   <% end %>
 <% else %>
   No comments found under path <code><%= @post_path %></code>
