@@ -1,8 +1,8 @@
 <div id="<%= dom_id comment %>">
   <p>
     <% comment_date_formatted = comment.created_at
-                             .in_time_zone("America/New_York")
-                             .strftime("%B %d, %Y at %I:%M %p %Z") %>
+      .in_time_zone("America/New_York")
+      .strftime("%B %d, %Y at %I:%M %p %Z") %>
     <% comment_date_iso = comment.created_at.iso8601 %>
     <strong><%= comment.author.display_name %></strong> 
     <% if comment.author.website.present? %>
@@ -13,4 +13,12 @@
   <p>
     <%= comment.content %>
   </p>
+  <div>
+    <%= link_to "reply", new_comment_path(post_path: comment.post_path, parent_id: comment.id) %>
+  </div>
+  <% if comment.replies.any? %>
+    <blockquote class="replies">
+      <%= render partial: 'comment', collection: comment.replies, as: :comment %>
+    </blockquote>
+  <% end %>
 </div>

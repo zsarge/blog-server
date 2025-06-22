@@ -21,16 +21,29 @@
       <li> be kind :] </li>
     </ul>
   </div>
+
+  <div>
+    <% post_path = @comment.post_path || params[:post_path] %>
+    <% parent_id = @comment.parent_id|| params[:parent_id] %>
+    <p> Post Path = <%= post_path %> </p>
+    <%= form.hidden_field :post_path, value: post_path %>
+    <p> Parent ID = <%= parent_id %> </p>
+    <%= form.hidden_field :parent_id, value: parent_id %>
+  </div>
+
+  <% if parent_id %>
+    <p>
+      Replying to:
+    </p>
+    <blockquote>
+      <%= render Comment.find_by_id(parent_id) %>
+    </blockquote>
+  <% end %>
   <div>
     <%= form.label :content, "Your Comment", style: "display: block" %>
     <%= form.textarea :content %>
   </div>
 
-  <div>
-    <% post_path = @comment.post_path || params[:post_path] %>
-    <p> Post Path = <%= post_path %> </p>
-    <%= form.hidden_field :post_path, value: post_path %>
-  </div>
 
  <!-- Nested Author Fields -->
   <fieldset>
