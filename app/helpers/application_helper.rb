@@ -9,6 +9,6 @@ module ApplicationHelper
   end
 
   def display_url(url)
-    url.sub(/\Ahttps?:\/\//, '')
+    truncate(url.sub(/\Ahttps?:\/\//, ''), length: 20)
   end
 end
