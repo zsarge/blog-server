@@ -23,20 +23,18 @@
   </div>
 
   <div>
-    <% post_path = @comment.post_path || params[:post_path] %>
-    <% parent_id = @comment.parent_id|| params[:parent_id] %>
-    <p> Post Path = <%= post_path %> </p>
-    <%= form.hidden_field :post_path, value: post_path %>
-    <p> Parent ID = <%= parent_id %> </p>
-    <%= form.hidden_field :parent_id, value: parent_id %>
+    <p> Post Path = <%= @post_path %> </p>
+    <%= form.hidden_field :post_path, value: @post_path %>
+    <p> Parent ID = <%= @parent_id %> </p>
+    <%= form.hidden_field :parent_id, value: @parent_id %>
   </div>
 
-  <% if parent_id %>
+  <% if @parent_id %>
     <p>
       Replying to:
     </p>
     <blockquote>
-      <%= render Comment.find_by_id(parent_id) %>
+      <%= render Comment.find_by_id(@parent_id) %>
     </blockquote>
   <% end %>
   <div>

@@ -14,6 +14,7 @@ class CommentsController < ApplicationController
   def new
 	params.expect(:post_path)
 	@comment = Comment.new
+    set_params
   end
 
   # GET /comments/1/edit
@@ -40,6 +41,7 @@ class CommentsController < ApplicationController
   # GET /comments/for?post_path=some/path
   def for
 	@post_path = for_params
+    set_params
 	if @post_path.blank?
 	  respond_to do |format|
 		format.html { redirect_to comments_path, alert: "post_path parameter is required." }
@@ -61,6 +63,11 @@ class CommentsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_comment
 	@comment = Comment.find(params.expect(:id))
+  end
+
+  def set_params
+    @post_path = @comment&.post_path || params[:post_path] 
+    @parent_id = @comment&.parent_id || params[:parent_id] 
   end
 
   # Only allow a list of trusted parameters through.
