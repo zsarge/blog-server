@@ -30,8 +30,8 @@ class CommentsController < ApplicationController
 		format.html { redirect_to @comment, notice: "Comment was successfully created." }
 		format.json { render :show, status: :created, location: @comment }
 	  else
-		@comment.post_path ||= params.dig(:comment, :post_path)
-		format.html { render :new, status: :unprocessable_entity }
+		set_params
+		format.html { render :new, status: :unprocessable_entity, post_path: @post_path, parent_id: @parent_id }
 		format.json { render json: @comment.errors, status: :unprocessable_entity }
 	  end
 	end
@@ -66,8 +66,8 @@ class CommentsController < ApplicationController
   end
 
   def set_params
-    @post_path = @comment&.post_path || params[:post_path] 
-    @parent_id = @comment&.parent_id || params[:parent_id] 
+    @post_path = @comment&.post_path || params[:post_path] || params.dig(:comment, :post_path)
+    @parent_id = @comment&.parent_id || params[:parent_id] || params.dig(:comment, :post_path)
   end
 
   # Only allow a list of trusted parameters through.
