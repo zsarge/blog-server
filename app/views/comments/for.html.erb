@@ -1,4 +1,5 @@
 
+
 <div>
   <%= link_to "New Comment", new_comment_path(post_path: @post_path) %>
 </div>
@@ -7,12 +8,12 @@
     <%= paginate @comments %>
 </div>
 
-<% if @comments %>
-  <% @comments.each do |comment| %>
-    <%= render partial: 'thread', locals: {comment: comment} %>
-  <% end %>
-<% else %>
-  No comments found under path <code><%= @post_path %></code>
+<% if @comments.blank? %>
+  No comments yet! 
+<% end %>
+
+<% @comments.each do |comment| %>
+  <%= render partial: 'thread', locals: {comment: comment} %>
 <% end %>
 
 <div style="font-size: 0.8rem;">

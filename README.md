@@ -13,7 +13,6 @@ This server contains:
 to do:
 - comment system
    - pagination
-    - plan: kaminari for post level pagination
     - use AJAX for getting more replies to a comment via pagination?
     - use threading to handle depth
    - verification system via console
