@@ -13,10 +13,13 @@ This server contains:
 to do:
 - comment system
    - pagination
-    - verification system via console
-    - mailers
-        - on comment
-        - on report
+    - plan: kaminari for post level pagination
+    - use AJAX for getting more replies to a comment via pagination?
+    - use threading to handle depth
+   - verification system via console
+   - mailers
+       - on comment
+       - on report
     - webmention support?
 - cached file system via google drive
 - automatically back up db to google drive

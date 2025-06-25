@@ -3,6 +3,10 @@
   <%= link_to "New Comment", new_comment_path(post_path: @post_path) %>
 </div>
 
+<div style="font-size: 0.8rem;">
+    <%= paginate @comments %>
+</div>
+
 <% if @comments %>
   <% @comments.each do |comment| %>
     <%= render partial: 'thread', locals: {comment: comment} %>
@@ -11,3 +15,6 @@
   No comments found under path <code><%= @post_path %></code>
 <% end %>
 
+<div style="font-size: 0.8rem;">
+    <%= paginate @comments %>
+</div>
