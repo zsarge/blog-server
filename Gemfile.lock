@@ -253,6 +253,7 @@ GEM
     rdoc (6.14.1)
       erb
       psych (>= 4.0.0)
+    recaptcha (5.19.0)
     regexp_parser (2.10.0)
     reline (0.6.1)
       io-console (~> 0.5)
@@ -368,6 +369,7 @@ DEPENDENCIES
   brakeman
   cssbundling-rails
   debug
+  dotenv
   image_processing (~> 1.2)
   jbuilder
   jsbundling-rails
@@ -375,6 +377,7 @@ DEPENDENCIES
   propshaft
   puma (>= 5.0)
   rails (~> 8.0.2)
+  recaptcha
   rubocop-rails-omakase
   solid_cable
   solid_cache

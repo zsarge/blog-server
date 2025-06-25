@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  include Recaptcha::Adapters::ViewMethods
+
   before_action :set_comment, only: %i[ show ]
 
   # GET /comments or /comments.json
@@ -26,15 +28,15 @@ class CommentsController < ApplicationController
 	@comment = Comment.new(comment_params)
 
 	respond_to do |format|
-	  if @comment.save
-		format.html { redirect_to @comment, notice: "Comment was successfully created." }
-		format.json { render :show, status: :created, location: @comment }
-	  else
-		set_params
-		format.html { render :new, status: :unprocessable_entity, post_path: @post_path, parent_id: @parent_id }
-		format.json { render json: @comment.errors, status: :unprocessable_entity }
-	  end
-	end
+      if verify_recaptcha(model: @comment) && @comment.save
+        format.html { redirect_to @comment, notice: "Comment was successfully created." }
+        format.json { render :show, status: :created, location: @comment }
+      else
+        set_params
+        format.html { render :new, status: :unprocessable_entity, post_path: @post_path, parent_id: @parent_id }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # comments for a specific page
@@ -67,7 +69,7 @@ class CommentsController < ApplicationController
 
   def set_params
     @post_path = @comment&.post_path || params[:post_path] || params.dig(:comment, :post_path)
-    @parent_id = @comment&.parent_id || params[:parent_id] || params.dig(:comment, :post_path)
+    @parent_id = @comment&.parent_id || params[:parent_id] || params.dig(:comment, :parent_id)
   end
 
   # Only allow a list of trusted parameters through.
