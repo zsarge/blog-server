@@ -64,3 +64,5 @@ group :development do
 end
 
 gem "tailwindcss-rails", "~> 4.2"
+
+gem "redcarpet", "~> 3.6"
