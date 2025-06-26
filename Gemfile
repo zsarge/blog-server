@@ -66,3 +66,5 @@ end
 gem "tailwindcss-rails", "~> 4.2"
 
 gem "redcarpet", "~> 3.6"
+
+gem "google_drive", "~> 3.0"
