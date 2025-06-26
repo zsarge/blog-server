@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     params.permit(:page)
     set_page
 	@comments = Comment.all
-                       .order(:created_at)
+                       .order(created_at: :desc)
                        .page(@page)
   end
 
@@ -60,7 +60,7 @@ class CommentsController < ApplicationController
 	end
 
     @comments = Comment.where(post_path: @post_path, parent_id: nil)
-                       .order(:created_at)
+                       .order(created_at: :desc)
                        .page(@page)
 
 	respond_to do |format|
