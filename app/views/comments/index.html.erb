@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Comments" %>
+
+<h1>Comments</h1>
+
+<div style="font-size: 0.8rem;">
+    <%= paginate @comments %>
+</div>
+
+<div id="comments">
+  <% @comments.each do |comment| %>
+    <%= render comment %>
+  <% end %>
+</div>
+
+<div style="font-size: 0.8rem;">
+    <%= paginate @comments %>
+</div>

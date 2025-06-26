@@ -1,0 +1,19 @@
+<div id="<%= dom_id comment %>" class="p-2 text-base border-l-3 border-gray-200 dark:border-gray-800">
+  <div>
+    <%= render comment, already_embedded: true  %>
+  </div>
+  <div class="mb-1">
+    <%# inspired by: https://flowbite.com/blocks/publisher/comments/ %>
+    <div class="flex items-center space-x-4">
+      <span class="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium mt-1">
+        <%= link_to raw("&#8617; reply"), new_comment_path(post_path: comment.post_path, parent_id: comment.id) %>
+
+      </span>
+    </div>
+  </div>
+  <% if comment.replies.any? %>
+    <div class="replies ml-4">
+      <%= render partial: 'thread', collection: comment.replies, as: :comment %>
+    </div>
+  <% end %>
+</div>
