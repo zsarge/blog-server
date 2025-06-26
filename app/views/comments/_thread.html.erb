@@ -1,24 +1,20 @@
-<div id="<%= dom_id comment %>">
-  <p>
-    <% comment_date_formatted = comment.created_at
-      .in_time_zone("America/New_York")
-      .strftime("%B %d, %Y at %I:%M %p %Z") %>
-    <% comment_date_iso = comment.created_at.iso8601 %>
-    <strong><%= comment.author.display_name %></strong> 
-    <% if comment.author.website.present? %>
-      <small>(<%= link_to display_url(comment.author.website), normalize_url(comment.author.website), target: "_blank", rel: "noopener" %>)</small>
-    <% end %>
-    (<time datetime="<%= comment_date_iso %>"><%= comment_date_formatted %></time>)
-  </p>
-  <p>
-    <%= comment.content %>
-  </p>
+<div id="<%= dom_id comment %>" class="p-2 text-base border-l-3 border-gray-200 dark:border-gray-800">
   <div>
-    <%= link_to "reply", new_comment_path(post_path: comment.post_path, parent_id: comment.id) %>
+    <%= render comment, already_embedded: true  %>
+  </div>
+  <div class="mb-1">
+    <%# inspired by: https://flowbite.com/blocks/publisher/comments/ %>
+    <div class="flex items-center space-x-4">
+      <span type="button"
+            class="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium mt-1">
+        <%= link_to raw("&#8617; reply"), new_comment_path(post_path: comment.post_path, parent_id: comment.id) %>
+
+      </span>
+    </div>
   </div>
   <% if comment.replies.any? %>
-    <blockquote class="replies">
+    <div class="replies ml-4">
       <%= render partial: 'thread', collection: comment.replies, as: :comment %>
-    </blockquote>
+    </div>
   <% end %>
 </div>

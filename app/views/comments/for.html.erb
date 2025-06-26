@@ -1,21 +1,28 @@
+<div class="p-2 bg-slate-100 rounded-lg text-slate-700 dark:text-slate-300 dark:bg-slate-900">
 
+  <div class="mb-3">
+    <a href="<%= new_comment_path(post_path: @post_path) %>">
+      <div class="bg-black hover:bg-orange-600 text-white font-bold py-2 px-4 rounded w-fit">
+        New Comment
+      </div>
+    </a>
+  </div>
 
-<div>
-  <%= link_to "New Comment", new_comment_path(post_path: @post_path) %>
-</div>
-
-<div style="font-size: 0.8rem;">
+  <div style="font-size: 0.8rem;">
     <%= paginate @comments %>
-</div>
+  </div>
 
-<% if @comments.blank? %>
-  No comments yet! 
-<% end %>
+  <% if @comments.blank? %>
+    No comments yet! 
+  <% end %>
 
-<% @comments.each do |comment| %>
-  <%= render partial: 'thread', locals: {comment: comment} %>
-<% end %>
+  <% @comments.each do |comment| %>
+    <%= render partial: 'thread', locals: {comment: comment} %>
+  <% end %>
 
-<div style="font-size: 0.8rem;">
+  <div style="font-size: 0.8rem;">
     <%= paginate @comments %>
+  </div>
+
 </div>
+
