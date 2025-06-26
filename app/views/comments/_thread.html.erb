@@ -5,8 +5,7 @@
   <div class="mb-1">
     <%# inspired by: https://flowbite.com/blocks/publisher/comments/ %>
     <div class="flex items-center space-x-4">
-      <span type="button"
-            class="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium mt-1">
+      <span class="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium mt-1">
         <%= link_to raw("&#8617; reply"), new_comment_path(post_path: comment.post_path, parent_id: comment.id) %>
 
       </span>

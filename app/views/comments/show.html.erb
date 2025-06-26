@@ -1,7 +1,15 @@
-<p style="color: green"><%= notice %></p>
+<div class="p-2 bg-slate-100 rounded-lg text-slate-700 dark:text-slate-300 dark:bg-slate-900">
+  <p style="color: green"><%= notice %></p>
 
-<%= render @comment %>
+  <div class="p-3">
+  <%= render @comment %>
+  </div>
 
-<div>
-  <%= link_to "See all replies to this post", controller: 'comments', action: 'for', post_path: @comment.post_path %> 
+  <div>
+    <a href="<%= url_for controller: 'comments', action: 'for', post_path: @comment.post_path %>">
+      <div class="bg-black hover:bg-orange-600 text-white font-bold py-2 px-4 rounded w-fit">
+        See all replies to this post
+      </div>
+    </a>
+  </div>
 </div>

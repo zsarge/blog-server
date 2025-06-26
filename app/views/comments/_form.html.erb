@@ -1,72 +1,66 @@
-<%= form_with(model: comment) do |form| %>
+<%= form_with(model: comment, class: "space-y-6") do |form| %>
   <% if comment.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
-
-      <ul>
-        <% comment.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
+	<div class="text-red-600 border border-red-300 rounded-md p-4 bg-red-50 dark:text-red-200 dark:bg-red-800">
+	  <h2 class="font-semibold text-lg mb-2">
+		<%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:
+	  </h2>
+	  <ul class="list-disc list-inside space-y-1">
+		<% comment.errors.each do |error| %>
+		  <li><%= error.full_message %></li>
+		<% end %>
+	  </ul>
+	</div>
   <% end %>
 
-
-  <div>
-    <h2>Notes:</h2>
-    <ul>
-      <li> comments cannot be edited or deleted, except by moderators </li>
-      <li> comments are plain-text </li>
-      <li> expect all information provided to be public </li>
-      <li> be kind :] </li>
-    </ul>
+  <div class="mb-3">
+	<h2 class="font-bold text-lg">Notes:</h2>
+	<ul class="list-disc list-inside space-y-1">
+	  <li class="font-bold">Comments cannot be edited or deleted, except by moderators</li>
+	  <li>Comments are plain-text</li>
+	  <li>Expect all information provided to be public</li>
+	  <li>Be kind :] </li>
+	</ul>
   </div>
 
-  <div>
-    <p> Post Path = <%= @post_path %> </p>
-    <%= form.hidden_field :post_path, value: @post_path %>
-    <p> Parent ID = <%= @parent_id %> </p>
-    <%= form.hidden_field :parent_id, value: @parent_id %>
-  </div>
+  <%= form.hidden_field :post_path, value: @post_path %>
+  <%= form.hidden_field :parent_id, value: @parent_id %>
 
   <% if @parent_id.present? %>
-    <p>
-      Replying to:
-    </p>
-    <blockquote>
-      <%= render Comment.find_by_id(@parent_id) %>
-    </blockquote>
+	<p class="font-bold">Replying to:</p>
+	<div class="ml-5 pt-3 pb-3 border-l-4 border-gray-300 pl-4 rounded">
+	  <%= render Comment.find_by_id(@parent_id) %>
+	</div>
   <% end %>
+
   <div>
-    <%= form.label :content, "Your Comment", style: "display: block" %>
-    <%= form.textarea :content %>
+	<%= form.label :content, "Your Comment", class: "block font-medium mb-1" %>
+	<%= form.text_area :content, rows: 5, class: "w-full border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 p-2" %>
   </div>
 
-
- <!-- Nested Author Fields -->
-  <fieldset>
-    <legend>Author Details (Optional)</legend>
-    <%= form.fields_for :author, comment.author || Author.new do |author_fields| %>
-      <div>
-        <%= author_fields.label :name, "Your Name" %>
-        <%= author_fields.text_field :name %>
-      </div>
-      <div>
-        <%= author_fields.label :website, "Your Website" %>
-        <%= author_fields.text_field :website %>
-      </div>
-      <div>
-        <%= author_fields.label :email, "Your E-Mail (only visible to admin)" %>
-        <%= author_fields.text_field :email %>
-      </div>
-    <% end %>
+  <fieldset class="border border-gray-200 rounded-md p-4">
+	<legend class="text-sm font-semibold mb-2">Author Details (Optional)</legend>
+	<%= form.fields_for :author, comment.author || Author.new do |author_fields| %>
+	  <div class="mb-3">
+		<%= author_fields.label :name, "Your Name", class: "block mb-1" %>
+		<%= author_fields.text_field :name, class: "w-full border border-gray-300 rounded-md p-2 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+	  </div>
+	  <div class="mb-3">
+		<%= author_fields.label :website, "Your Website", class: "block mb-1" %>
+		<%= author_fields.text_field :website, class: "w-full border border-gray-300 rounded-md p-2 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+	  </div>
+	  <div class="mb-3">
+		<%= author_fields.label :email, "Your E-Mail (only visible to admin)", class: "block mb-1" %>
+		<%= author_fields.text_field :email, class: "w-full border border-gray-300 rounded-md p-2 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+	  </div>
+	<% end %>
   </fieldset>
 
   <div class="captcha-container">
-    <%= recaptcha_tags %>
+	<%= recaptcha_tags %>
   </div>
 
   <div>
-    <%= form.submit %>
+	<%= form.submit "Post Comment", class: "bg-orange-800 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded w-fit cursor-pointer" %>
   </div>
 <% end %>
+

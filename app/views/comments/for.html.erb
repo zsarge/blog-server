@@ -1,5 +1,4 @@
 <div class="p-2 bg-slate-100 rounded-lg text-slate-700 dark:text-slate-300 dark:bg-slate-900">
-
   <div class="mb-3">
     <a href="<%= new_comment_path(post_path: @post_path) %>">
       <div class="bg-black hover:bg-orange-600 text-white font-bold py-2 px-4 rounded w-fit">
@@ -8,7 +7,14 @@
     </a>
   </div>
 
-  <div style="font-size: 0.8rem;">
+<style>
+.pagination a {
+  text-decoration: underline;
+  padding: 3px;
+}
+</style>
+
+  <div style="font-size: 0.9rem;">
     <%= paginate @comments %>
   </div>
 

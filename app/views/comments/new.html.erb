@@ -1,14 +1,18 @@
-<% content_for :title, "New comment" %>
+<div class="p-2 bg-slate-100 rounded-lg text-slate-700 dark:text-slate-300 dark:bg-slate-900">
+  <h1 class="mb-4 text-3xl font-extrabold">New comment</h1>
 
-<h1>New comment</h1>
+  <%= render "form", comment: @comment %>
 
-<%= render "form", comment: @comment %>
+  <br>
 
-<br>
-
-<div>
-  <% if @post_path %>
-    <%= link_to "Back to comments", controller: 'comments', action: 'for', post_path: @post_path %>
-  <% end %>
+  <div>
+    <% if @post_path %>
+      <a href="<%= url_for controller: 'comments', action: 'for', post_path: @post_path  %>">
+        <div class="bg-black hover:bg-orange-600 text-white font-bold py-2 px-4 rounded w-fit">
+          Back to Comments
+        </div>
+      </a>
+    <% end %>
+  </div>
 </div>
 
