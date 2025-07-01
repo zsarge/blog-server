@@ -1,8 +1,19 @@
 {
-  "name": "app",
+  "name": "blog-server",
   "private": true,
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
+    "build": "node esbuild.config.js",
+    "old-build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
     "build:css": "npx @tailwindcss/cli -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.16",
+    "@rails/actiontext": "^8.0.200",
+    "esbuild": "^0.25.5",
+    "esbuild-sass-plugin": "^3.3.1",
+    "sass": "^1.89.2",
+    "tailwindcss": "^4.1.11",
+    "trix": "^2.1.15"
   }
 }

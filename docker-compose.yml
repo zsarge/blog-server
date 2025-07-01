@@ -1,0 +1,11 @@
+services:
+  blog-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "./bin/dev"
+    tty: true
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"

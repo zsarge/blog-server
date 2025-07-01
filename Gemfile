@@ -20,7 +20,7 @@ gem "cssbundling-rails"
 gem "jbuilder"
 
 # for Google's ReCaptcha
-gem 'dotenv', groups: [:development, :test]
+gem "dotenv"
 gem "recaptcha"
 gem "kaminari" # pagination
 
