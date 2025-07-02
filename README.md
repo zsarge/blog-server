@@ -24,3 +24,14 @@ to do:
 - automatically back up db to google drive
 - authentication / authorization (people should not be able to perform destructive actions without authorization)
 
+
+---
+
+starting in prod:
+
+first time:
+
+```
+docker-compose up -d nginx blog-server
+docker-compose run --rm certbot
+```
