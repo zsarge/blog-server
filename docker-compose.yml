@@ -1,3 +1,6 @@
+# THIS IS VESTIGIAL, AND NOT RECOMMENDED
+# The digital ocean I'm running this on takes *forever* to build this.
+# I'm keeping it around in case I get a more powerful server one day.
 
 services:
   blog-server:

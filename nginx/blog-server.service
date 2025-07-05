@@ -1,0 +1,22 @@
+# this is the production service that the nginx server will call to.
+# this is not dockerized, due to how long it was taking to build.
+
+# run this commands to install:
+#   sudo cp blog-server.service /etc/systemd/system/blog-server.service
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable hello-world.service
+
+[Unit]
+Description=Blog Server
+After=network.target
+
+[Service]
+User=blog-server
+WorkingDirectory=/home/blog-server/blog-server
+ExecStart=/home/blog-server/blog-server/nginx/start-server.sh
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+
