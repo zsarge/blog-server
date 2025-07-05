@@ -57,6 +57,14 @@
 		window.parent.postMessage('comments-frame-loaded', SERVER_DOMAIN);
 		sendHeightToParent();
 	  });
+
+      window.addEventListener("message", (event) => {
+        if ([SERVER_DOMAIN, "https://zack.fyi", "http://localhost:4321"].includes(event.origin)) {
+          if (event.data === 'refresh') {
+            sendHeightToParent();
+          }
+        }
+      });
 	</script>
   </body>
 </html>
