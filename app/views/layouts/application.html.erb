@@ -44,9 +44,19 @@
 		console.log("ruby using dark theme!")
 	  }
 
+	  const SERVER_DOMAIN = "*";
+	  <%# const SERVER_DOMAIN = "zack.fyi";  %>
 
-	  // handle iframe embedding
-	  window.parent.postMessage('comments-frame-loaded', '*');
+	  function sendHeightToParent() {
+		const height = document.body.scrollHeight;
+		window.parent.postMessage({ type: 'comments-frame-height', height: height }, SERVER_DOMAIN);
+	  }
+
+	  window.addEventListener("load", function() {
+		// handle iframe embedding
+		window.parent.postMessage('comments-frame-loaded', SERVER_DOMAIN);
+		sendHeightToParent();
+	  });
 	</script>
   </body>
 </html>
