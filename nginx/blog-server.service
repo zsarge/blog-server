@@ -4,7 +4,7 @@
 # run this commands to install:
 #   sudo cp blog-server.service /etc/systemd/system/blog-server.service
 #   sudo systemctl daemon-reload
-#   sudo systemctl enable hello-world.service
+#   sudo systemctl enable blog-server.service
 
 [Unit]
 Description=Blog Server
