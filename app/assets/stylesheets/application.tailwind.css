@@ -1,12 +1,14 @@
 
-/* undo tailwind for user markdown */
+@import "tailwindcss";
 
+
+/* undo tailwind for user markdown */
 .user-content-reset li,
 .user-content-reset ul,
-.user-content-reset ol { 
-  margin-left: 0.6em; 
-  padding-left: 0.5em; 
-  list-style-position: outside; 
+.user-content-reset ol {
+  margin-left: 0.6em;
+  padding-left: 0.5em;
+  list-style-position: outside;
 }
 
 .user-content-reset ul {

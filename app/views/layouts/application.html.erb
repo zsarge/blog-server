@@ -35,13 +35,20 @@
 		return "light";
 	  })();
 
-
-	  if (theme === "light") {
+      function useLightTheme() {
 		document.documentElement.classList.remove("dark");
 		console.log("ruby using light theme!")
-	  } else {
+      }
+
+      function useDarkTheme() {
 		document.documentElement.classList.add("dark");
 		console.log("ruby using dark theme!")
+      }
+
+	  if (theme === "light") {
+        useLightTheme();
+	  } else {
+        useDarkTheme();
 	  }
 
 	  const SERVER_DOMAIN = "*";
@@ -59,9 +66,17 @@
 	  });
 
       window.addEventListener("message", (event) => {
+        console.log({event});
         if ([SERVER_DOMAIN, "https://zack.fyi", "http://localhost:4321"].includes(event.origin)) {
           if (event.data === 'refresh') {
             sendHeightToParent();
+          }
+          if (event.data.type === 'use-theme') {
+            if (event.data.theme === 'dark') { 
+              useDarkTheme();
+            } else {
+              useLightTheme();
+            }
           }
         }
       });
