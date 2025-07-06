@@ -36,7 +36,8 @@ class FilesController < ApplicationController
 
     send_data image_data,
       type: Mime::Type.lookup_by_extension(File.extname(@file_name).delete('.')),
-      disposition: 'inline'
+      disposition: 'inline',
+      filename: @file_name
   end
 
   # we make sure to return a non-nil result, such that
