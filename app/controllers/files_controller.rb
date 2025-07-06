@@ -30,7 +30,7 @@ class FilesController < ApplicationController
 
   def send_image_data(image_data)
     if image_data == IMAGE_NOT_FOUND
-      render json: { error: "Image Not Found", file_name: @file_name, collection: @collection }, status: :service_unavailable
+      render json: { error: "Image Not Found", file_name: @file_name, collection: @collection }, status: :not_found
       return
     end
 
