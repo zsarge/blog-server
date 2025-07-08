@@ -57,10 +57,12 @@ def process_file(file, destination_folder)
   def convert_file(source_path, destination_path, format)
     return if File.exist?(destination_path)
 
-    ImageProcessing::MiniMagick
-      .source(source_path)
-      .convert(format)        # sets the output format (e.g. "jpg")
-      .call(destination: destination_path)
+	with_retry do # handle when image converison is killed by oom
+	  ImageProcessing::MiniMagick
+		.source(source_path)
+		.convert(format)        # sets the output format (e.g. "jpg")
+		.call(destination: destination_path)
+	end
   end
 
   # convert the file
@@ -70,6 +72,27 @@ def process_file(file, destination_folder)
     basename = File.basename(file.name, original_file_extension)
     destination_path = File.join(destination_folder, [basename, '.', target_file_ext].join)
     convert_file(local_path, destination_path, target_file_ext)
+  end
+end
+
+MAX_RETRIES = 5
+
+def with_retry
+  retries = 0
+
+  begin
+    yield
+  rescue => e
+    retries += 1
+    if retries <= MAX_RETRIES
+      sleep_time = 2 ** retries  # Exponential backoff (2s, 4s, 8s, ...)
+      Rails.logger.warn("Retry ##{retries} after #{sleep_time}s due to error: #{e.message}")
+      sleep(sleep_time)
+      retry
+    else
+      Rails.logger.error("Max retries reached. Giving up. Last error: #{e.message}")
+      raise
+    end
   end
 end
 
