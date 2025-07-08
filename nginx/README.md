@@ -4,17 +4,15 @@ This instance should:
 - Be configured with certbot to automatically renew ssl certs
 - Automatically rate limit the `/files` endpoint
 
-## Rate Limiting with NGINX 
-
-Modify `/etc/nginx/nginx.conf` (not just the server block) and add this to the top-level http block:
+## Serving files with nginx
 
 ```
-http {
-    limit_req_zone $binary_remote_addr zone=file_limit:10m rate=60r/s;
+# configure group
+sudo usermod -a -G blog-server www-data
 
-    # ... your includes and other settings
-    include /etc/nginx/conf.d/*.conf;
-}
-
+# let nginx access files
+sudo chown -R :www-data /home/blog-server/blog-server-cache
 ```
+
+This should fix 403 forbidden.
 
