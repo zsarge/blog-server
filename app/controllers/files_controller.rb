@@ -81,7 +81,7 @@ class FilesController < ApplicationController
   # errors are cached and not expensively retried
   IMAGE_NOT_FOUND = :image_not_found
 
-  CONVERTABLE_FORMATS = %w(jpg webp avif)
+  CONVERTABLE_FORMATS = %w(jpg avif) # jpg for compatibility, avif for optimization
 
   # attempt to get the image from the cache, then get it from google drive
   def get_image

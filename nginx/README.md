@@ -10,7 +10,7 @@ Modify `/etc/nginx/nginx.conf` (not just the server block) and add this to the t
 
 ```
 http {
-    limit_req_zone $binary_remote_addr zone=file_limit:10m rate=60r/m;
+    limit_req_zone $binary_remote_addr zone=file_limit:10m rate=60r/s;
 
     # ... your includes and other settings
     include /etc/nginx/conf.d/*.conf;
