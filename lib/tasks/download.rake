@@ -25,17 +25,20 @@ end
 private
 
 def download_folder(folder, destination_folder, descending_names=nil)
-  folder.files.each do |file|
-    local_dir = File.join(destination_folder, *descending_names)
-    local_path = File.join(local_dir, file.name)
+  begin # handle paging *all* files
+	(files, page_token) = folder.files(page_token: page_token)
+	files.each do |file|
+	  local_dir = File.join(destination_folder, *descending_names)
+	  local_path = File.join(local_dir, file.name)
 
-    if file.is_a?(GoogleDrive::Collection)
-      FileUtils.mkdir_p(File.join(local_dir, file.name))
-      download_folder(file, destination_folder, (descending_names || []) << file.name)
-    else
-      process_file(file, local_dir)
-    end
-  end
+	  if file.is_a?(GoogleDrive::Collection)
+		FileUtils.mkdir_p(File.join(local_dir, file.name))
+		download_folder(file, destination_folder, (descending_names || []) << file.name)
+	  else
+		process_file(file, local_dir)
+	  end
+	end
+  end while page_token
 end
 
 TARGET_TYPES = %w(jpg avif webp)
