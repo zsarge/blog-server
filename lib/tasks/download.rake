@@ -26,22 +26,50 @@ private
 
 def download_folder(folder, destination_folder, descending_names=nil)
   folder.files.each do |file|
-		local_dir = File.join(destination_folder, *descending_names)
+    local_dir = File.join(destination_folder, *descending_names)
     local_path = File.join(local_dir, file.name)
 
     if file.is_a?(GoogleDrive::Collection)
-			FileUtils.mkdir_p(File.join(local_dir, file.name))
+      FileUtils.mkdir_p(File.join(local_dir, file.name))
       download_folder(file, destination_folder, (descending_names || []) << file.name)
     else
-      if File.exist?(local_path)
-        puts "Skipping existing file: #{file.name}"
-      else
-        puts "Downloading: #{file.name}"
-        File.open(local_path, 'wb') do |new_file|
-					file.download_to_io(new_file)
-        end
-      end
+      process_file(file, local_dir)
     end
+  end
+end
+
+TARGET_TYPES = %w(jpg avif webp)
+
+def process_file(file, destination_folder) 
+  # download the file
+  local_path = File.join(destination_folder, file.name)
+  unless File.exist?(local_path)
+    puts "Downloading #{file.name}"
+    File.open(local_path, 'wb') do |new_file|
+      file.download_to_io(new_file)
+    end
+  end
+
+  original_file_extension = File.extname(file.name)
+
+  return unless original_file_extension.delete('.').in?(TARGET_TYPES)
+
+  def convert_file(source_path, destination_path, format)
+    return if File.exist?(destination_path)
+
+    ImageProcessing::MiniMagick
+      .source(source_path)
+      .convert(format)        # sets the output format (e.g. "jpg")
+      .call(destination: destination_path)
+  end
+
+  # convert the file
+  TARGET_TYPES.each do |target_file_ext|
+    next if target_file_ext == original_file_extension
+    puts "Converting #{file.name} to #{target_file_ext}"
+    basename = File.basename(file.name, original_file_extension)
+    destination_path = File.join(destination_folder, [basename, '.', target_file_ext].join)
+    convert_file(local_path, destination_path, target_file_ext)
   end
 end
 
