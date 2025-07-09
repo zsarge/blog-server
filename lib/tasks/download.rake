@@ -94,7 +94,6 @@ def with_retry
       retry
     else
       Rails.logger.error("Max retries reached. Giving up. Last error: #{e.message}")
-      raise
     end
   end
 end
