@@ -11,7 +11,7 @@ namespace :export do
 	lookup = {}
 
 	Dir.glob("#{cache_folder}/**/*") do |path|
-      if File.file?(path) && File.extname(path).downcase.in?(%w(png jpeg jpg avif gif webp))
+      if File.file?(path) && File.extname(path).downcase[1..-1].in?(%w(png jpeg jpg avif gif webp))
 		filename = File.basename(path)
 		puts "Found file: #{path} (#{filename})"
 		width, height = FastImage.size(path)
