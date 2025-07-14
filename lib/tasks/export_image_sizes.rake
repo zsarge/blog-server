@@ -14,8 +14,8 @@ namespace :export do
 	  if File.file?(path)
 		filename = File.basename(path)
 		puts "Found file: #{path} (#{filename})"
-		dimensions = FastImage.size(path)
-		lookup[filename] = dimensions
+		width, height = FastImage.size(path)
+		lookup[filename] = { "width" => width, "height" => height }
 	  end
 	end
 
