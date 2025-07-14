@@ -12,7 +12,7 @@ namespace :export do
 
 	Dir.glob("#{cache_folder}/**/*") do |path|
 	  if File.file?(path)
-		filename = Dir.basename(path)
+		filename = File.basename(path)
 		puts "Found file: #{path} (#{filename})"
 		dimensions = FastImage.size(path)
 		lookup[filename] = dimensions
