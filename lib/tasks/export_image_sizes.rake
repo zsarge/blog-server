@@ -6,7 +6,7 @@ require 'fastimage'
 namespace :export do
   desc "Export sizes of downloaded images"
   task :image_sizes do
-	cache_folder = File.join(Dir.root, "blog-server-cache")
+	cache_folder = File.join(Dir.home, "blog-server-cache")
 
 	lookup = {}
 
