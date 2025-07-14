@@ -127,6 +127,7 @@ GEM
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
     faraday-retry (1.0.3)
+    fastimage (2.4.0)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -467,6 +468,7 @@ DEPENDENCIES
   cssbundling-rails
   debug
   dotenv
+  fastimage (~> 2.4)
   google_drive (~> 3.0)
   image_processing (~> 1.2)
   jbuilder

@@ -70,3 +70,5 @@ gem "redcarpet", "~> 3.6"
 gem "google_drive", "~> 3.0"
 
 gem "tailwindcss-ruby", "~> 4.1"
+
+gem "fastimage", "~> 2.4"
